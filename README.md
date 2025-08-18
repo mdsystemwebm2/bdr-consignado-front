@@ -30,6 +30,14 @@
   "email": "consignado01@admin.com",
   "password": "admin123"
 }
+````
+## Aplicativo
+ 
+### Ferramentas
+- NodeJS
+- Baixar no celular o aplicativo ExpoGo para visualizar o app. (https://expo.dev/go)
 
-## App
+### Como rodar
 
+- No terminal rodar o comando ``npm start``
+- Pelo app ExpoGo scanear o qr-code

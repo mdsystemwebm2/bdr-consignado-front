@@ -4,6 +4,17 @@
 
 ## Endpoints
 
+- /login (POST)
+  Login usuarios
+
+```JSON
+{
+  "email": "consignado01@admin.com",
+  "password": "admin123"
+}
+
+```
+
 - /register (POST)
   Registrando usuarios \ admin, vendedor, consignado
 
@@ -22,13 +33,27 @@
 
 ```
 
-- /login (POST)
-  Login usuarios
+- /users/id (POST)
+  Update usuarios
 
 ```JSON
 {
-  "email": "consignado01@admin.com",
-  "password": "admin123"
+  "name": "Consignado Testando",
+  "email": "consignado01@admin.com"
 }
 
 ```
+
+- /users/id (PUT)
+  Update usuarios
+
+```JSON
+{
+  "name": "Consignado Testando",
+  "email": "consignado01@admin.com"
+}
+
+```
+
+- /users/id (DELETE)
+  Deletando usuarios

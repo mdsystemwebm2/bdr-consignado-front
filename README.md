@@ -41,19 +41,31 @@
   "name": "Consignado Testando",
   "email": "consignado01@admin.com"
 }
-
 ```
+
+````
 
 - /users/id (PUT)
   Update usuarios
-
 ```JSON
 {
   "name": "Consignado Testando",
   "email": "consignado01@admin.com"
 }
 
-```
+````
 
 - /users/id (DELETE)
   Deletando usuarios
+
+## Aplicativo
+
+### Ferramentas
+
+- NodeJS
+- Baixar no celular o aplicativo ExpoGo para visualizar o app. (https://expo.dev/go)
+
+### Como rodar
+
+- No terminal rodar o comando `npm start`
+- Pelo app ExpoGo scanear o qr-code

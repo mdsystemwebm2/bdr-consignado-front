@@ -33,7 +33,7 @@
 
 ```
 
-- /users/id (POST)
+- /users/id (PUT)
   Update usuarios
 
 ```JSON
@@ -42,18 +42,6 @@
   "email": "consignado01@admin.com"
 }
 ```
-
-````
-
-- /users/id (PUT)
-  Update usuarios
-```JSON
-{
-  "name": "Consignado Testando",
-  "email": "consignado01@admin.com"
-}
-
-````
 
 - /users/id (DELETE)
   Deletando usuarios
@@ -69,3 +57,7 @@
 
 - No terminal rodar o comando `npm start`
 - Pelo app ExpoGo scanear o qr-code
+
+```
+
+```

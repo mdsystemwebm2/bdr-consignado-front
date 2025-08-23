@@ -55,5 +55,6 @@
 
 ### Como rodar
 
-- No terminal rodar o comando `npm start`
+- Instalar pacotes `npm install`
+- No terminal rodar o comando `npm start` para APP ou `npx expo start --web` para WEB
 - Pelo app ExpoGo scanear o qr-code

@@ -1,27 +1,24 @@
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "../components/button";
-import { Input } from "../components/input";
+import { StyleSheet, Text, View } from 'react-native';
+
+import { Button } from '../components/button';
+import { Input } from '../components/input';
 
 export default function SignInScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Login</Text>
-      <Input icon="user" />
-      <Button title="Entrar" />
+    <View style={{ width: '100%' }}>
+      <Text style={styles.title}>Login</Text>
+      <Input icon='at-sign' placeHolder='Digite deu e-mail' />
+      <Input icon='eye-off' placeHolder='Digite sua senha' />
+      <Button title='Entrar' />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A0C0B",
-    justifyContent: "center",
-    paddingHorizontal: 40,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#fff",
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 32,
   },
 });

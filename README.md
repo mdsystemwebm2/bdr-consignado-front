@@ -57,7 +57,3 @@
 
 - No terminal rodar o comando `npm start`
 - Pelo app ExpoGo scanear o qr-code
-
-```
-
-```

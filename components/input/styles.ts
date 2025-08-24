@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 8,
+    marginBottom: 18,
   },
   icon: {
     height: 44,

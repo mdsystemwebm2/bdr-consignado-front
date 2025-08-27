@@ -46,6 +46,9 @@
 - /users/id (DELETE)
   Deletando usuarios
 
+- /userdata (GET) Precisa pegar o token gerado no login e colocar em Bearer Token
+  Listar dados usuarios, e listar usuarios referente ao tipo
+
 ## Aplicativo
 
 ### Ferramentas

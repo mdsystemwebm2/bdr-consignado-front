@@ -1,13 +1,24 @@
-import { StyleSheet, View } from 'react-native';
-
-import { DisplayAnImage } from '../components/image';
-import SignInScreen from './sign-in';
+import { Redirect } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
+import { useAuth } from "../contexts/AuthContext";
+import { Button } from "../components/button";
 
 export default function HomeScreen() {
+  const { user, token, signOut } = useAuth();
+
+  if (!user) {
+    return <Redirect href="/sign-in" />;
+  }
+
+  function handleSignOut() {
+    signOut();
+  }
+
   return (
     <View style={styles.container}>
-      <DisplayAnImage src='https://reactnative.dev/img/tiny_logo.png' />
-      <SignInScreen />
+      <Text style={{ color: "#fff" }}>Home Screen LOGADO:{user.name}</Text>
+
+      <Button title="Sair" onPress={handleSignOut} />
     </View>
   );
 }
@@ -15,10 +26,10 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#0A0C0B',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0A0C0B",
     padding: 16,
-    width: '100%',
+    width: "100%",
   },
 });

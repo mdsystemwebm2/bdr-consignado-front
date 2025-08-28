@@ -37,6 +37,7 @@ export default function SignInScreen() {
             error={errors.email?.message}
             inputProps={{
               placeholder: "Digite seu e-mail",
+              placeholderTextColor: "#fff",
               onSubmitEditing: () => passwordRef.current?.focus(),
               returnKeyType: "next",
               keyboardType: "email-address",
@@ -59,6 +60,7 @@ export default function SignInScreen() {
             error={errors.password?.message}
             inputProps={{
               placeholder: "Digite sua senha",
+              placeholderTextColor: "#fff",
               secureTextEntry: true,
             }}
             formProps={{

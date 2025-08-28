@@ -1,28 +1,41 @@
 import { Feather } from "@expo/vector-icons";
 
-import { TextInput, View } from "react-native";
+import { Text, TextInput, TextInputProps, View } from "react-native";
 
 import { styles } from "./styles";
+import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
+import { forwardRef } from "react";
 
-interface InputProps {
+interface InputProps<T extends FieldValues = any> {
   icon: keyof typeof Feather.glyphMap;
-  placeHolder?: string;
-  value?: string;
-  onChange?: (text: string) => void;
+  error?: string;
+  formProps: UseControllerProps<T>;
+  inputProps: TextInputProps;
 }
+export const Input = forwardRef<TextInput, InputProps>(
+  ({ icon, formProps, inputProps, error }, ref) => {
+    return (
+      <Controller
+        render={({ field }) => (
+          <View style={styles.container}>
+            <View style={[styles.group]}>
+              <TextInput
+                ref={ref}
+                value={field.value}
+                onChangeText={field.onChange}
+                style={styles.input}
+                {...inputProps}
+              />
+              <View style={styles.icon}>
+                <Feather name={icon} size={18} color="#fff" />
+              </View>
+            </View>
 
-export const Input = ({ icon, placeHolder, value, onChange }: InputProps) => {
-  return (
-    <View style={styles.group}>
-      <TextInput
-        style={styles.input}
-        placeholder={placeHolder}
-        value={value}
-        onChangeText={onChange}
+            {error && <Text style={styles.error}>{error}</Text>}
+          </View>
+        )}
+        {...formProps}
       />
-      <View style={styles.icon}>
-        <Feather name={icon} size={18} color="#fff" />
-      </View>
-    </View>
-  );
-};
+    );
+  }
+);

@@ -50,18 +50,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const response = await api.post("/login", { email, password });
-    const data = response.data;
-    console.log("data", data);
+    try {
+      const response = await api.post("/login", { email, password });
+      const data = response.data;
 
-    setUser(data.user);
-    setToken(data.token);
+      setUser(data.user);
+      setToken(data.token);
 
-    console.log("user", user);
-    await AsyncStorage.setItem("@user", JSON.stringify(data.user));
-    await AsyncStorage.setItem("@token", data.token);
+      await AsyncStorage.setItem("@user", JSON.stringify(data.user));
+      await AsyncStorage.setItem("@token", data.token);
 
-    route.replace("/");
+      route.replace("/");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Erro ao fazer login.");
+    }
   };
 
   const signOut = async () => {

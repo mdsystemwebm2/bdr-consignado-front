@@ -2,12 +2,17 @@ import { Redirect } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/button";
+import { SplashScreen } from "../components/splashScreen";
 
 export default function HomeScreen() {
-  const { user, token, signOut } = useAuth();
+  const { user, token, signOut, isLoading } = useAuth();
 
-  if (!user) {
+  if (!token) {
     return <Redirect href="/sign-in" />;
+  }
+
+  if (isLoading) {
+    return <SplashScreen />;
   }
 
   function handleSignOut() {
@@ -16,7 +21,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#fff" }}>Home Screen LOGADO:{user.name}</Text>
+      <Text style={{ color: "#fff" }}>Home Screen LOGADO:{user?.name}</Text>
 
       <Button title="Sair" onPress={handleSignOut} />
     </View>
@@ -31,5 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A0C0B",
     padding: 16,
     width: "100%",
+    height: "100%",
   },
 });

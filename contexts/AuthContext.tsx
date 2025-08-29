@@ -22,6 +22,7 @@ type AuthContextType = {
   token: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  isLoading: boolean;
 };
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadStorageData() {
@@ -45,11 +47,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setToken(storedToken);
         route.replace("/");
       }
+
+      setIsLoading(false);
     }
     loadStorageData();
   }, []);
 
   const signIn = async (email: string, password: string) => {
+    setIsLoading(true);
     try {
       const response = await api.post("/login", { email, password });
       const data = response.data;
@@ -64,6 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     } catch (error: any) {
       alert(error.response?.data?.message || "Erro ao fazer login.");
     }
+    setIsLoading(false);
   };
 
   const signOut = async () => {
@@ -75,7 +81,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, token, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, token, user, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

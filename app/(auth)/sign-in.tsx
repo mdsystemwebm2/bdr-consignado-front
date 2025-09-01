@@ -1,4 +1,12 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
 
 import { Button } from "../../components/button";
 import { Input } from "../../components/input";
@@ -6,6 +14,7 @@ import { DisplayAnImage } from "../../components/image";
 import { useRef } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useForm } from "react-hook-form";
+import { Link } from "expo-router";
 
 type SignInFormData = {
   email: string;
@@ -26,7 +35,7 @@ export default function SignInScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <DisplayAnImage src={require("../../assets/logo.png")} />
       <View style={{ width: "100%" }}>
         <Text style={styles.title}>Login</Text>
@@ -37,7 +46,7 @@ export default function SignInScreen() {
             error={errors.email?.message}
             inputProps={{
               placeholder: "Digite seu e-mail",
-              placeholderTextColor: "#fff",
+              placeholderTextColor: "#6c757d",
               onSubmitEditing: () => passwordRef.current?.focus(),
               returnKeyType: "next",
               keyboardType: "email-address",
@@ -60,7 +69,7 @@ export default function SignInScreen() {
             error={errors.password?.message}
             inputProps={{
               placeholder: "Digite sua senha",
-              placeholderTextColor: "#fff",
+              placeholderTextColor: "#6c757d",
               secureTextEntry: true,
             }}
             formProps={{
@@ -71,8 +80,15 @@ export default function SignInScreen() {
           />
           <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
         </View>
+
+        <Text style={styles.footerText}>
+          Não tem uma conta?{" "}
+          <Link href="/sign-up" style={styles.footerLink}>
+            Cadastre-se
+          </Link>
+        </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -85,6 +101,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 16,
     width: "100%",
+    marginTop: StatusBar.currentHeight || 0,
   },
   title: {
     fontSize: 16,
@@ -94,5 +111,13 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: 22,
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#fff",
+    marginTop: 10,
+  },
+  footerLink: {
+    color: "#2965e6ff",
   },
 });

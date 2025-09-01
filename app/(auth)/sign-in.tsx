@@ -1,5 +1,4 @@
 import {
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -78,6 +77,7 @@ export default function SignInScreen() {
               rules: { required: "Senha é Obrigatória." },
             }}
           />
+
           <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
         </View>
 

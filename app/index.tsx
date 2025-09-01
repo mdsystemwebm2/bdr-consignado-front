@@ -2,7 +2,7 @@ import { Redirect } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "../components/button";
-import { SplashScreen } from "../components/splashScreen";
+import { SplashScreen } from "../components/splash-screen";
 
 export default function HomeScreen() {
   const { user, token, signOut, isLoading } = useAuth();

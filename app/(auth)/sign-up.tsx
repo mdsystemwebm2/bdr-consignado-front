@@ -12,9 +12,10 @@ import {
 import { Button } from "../../components/button";
 import { Input } from "../../components/input";
 import { DisplayAnImage } from "../../components/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Select } from "../../components/select";
 
 type SignUpFormData = {
   name: string;
@@ -37,6 +38,7 @@ export default function SignUpScreen() {
     formState: { errors },
   } = useForm<SignUpFormData>();
   const insets = useSafeAreaInsets();
+  const [userType, setUserType] = useState("fisica");
 
   const passwordRef = useRef<TextInput>(null);
   const confirmPasswordRef = useRef<TextInput>(null);
@@ -162,21 +164,13 @@ export default function SignUpScreen() {
                 }}
               />
 
-              <Input
-                ref={personTypeRef}
-                icon="users"
-                error={errors.personType?.message}
-                inputProps={{
-                  placeholder: "Pessoa Física ou Jurídica",
-                  placeholderTextColor: "#fff",
-                  returnKeyType: "next",
-                  onSubmitEditing: () => socialRef.current?.focus(),
-                }}
-                formProps={{
-                  control,
-                  name: "personType",
-                  rules: { required: "Tipo de Pessoa é Obrigatório." },
-                }}
+              <Select
+                options={[
+                  { label: "Pessoa Física", value: "fisica" },
+                  { label: "Pessoa Jurídica", value: "juridica" },
+                ]}
+                value={userType}
+                onChange={setUserType}
               />
 
               <Input

@@ -16,6 +16,8 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Select } from "../../components/select";
+import { api } from "../../services/api";
+import { useAuth } from "../../contexts/AuthContext";
 
 type SignUpFormData = {
   name: string;
@@ -39,6 +41,7 @@ export default function SignUpScreen() {
   } = useForm<SignUpFormData>();
   const insets = useSafeAreaInsets();
   const [userType, setUserType] = useState("fisica");
+  const { signIn } = useAuth();
 
   const passwordRef = useRef<TextInput>(null);
   const confirmPasswordRef = useRef<TextInput>(null);
@@ -50,8 +53,25 @@ export default function SignUpScreen() {
   const stateRef = useRef<TextInput>(null);
   const cityRef = useRef<TextInput>(null);
 
-  const handleSignUp = (data: SignUpFormData) => {
-    console.log(data);
+  const handleSignUp = async (data: SignUpFormData) => {
+    const userData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.confirmPassword,
+      phone: data.phone,
+      cnpj_cpf: data.cpf_cnpj,
+      address: `${data.city} ${data.state} ${data.cep}`,
+      type: "consignado",
+      responsible_id: 1,
+    };
+
+    try {
+      await api.post("/register", userData);
+      await signIn(data.email, data.password);
+    } catch (error) {
+      console.error("Error during sign up:", error);
+    }
   };
 
   return (

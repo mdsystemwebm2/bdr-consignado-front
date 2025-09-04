@@ -28,7 +28,7 @@
   "phone": "47999887763",
   "address": "Rua Exemplo, 123",
   "type": "consignado",
-  "responsible_id": 2
+  "identify": "8a2f4d9d1d..."
 }
 
 ```

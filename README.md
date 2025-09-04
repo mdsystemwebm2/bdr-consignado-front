@@ -27,8 +27,7 @@
   "cnpj_cpf": "05438070024",
   "phone": "47999887763",
   "address": "Rua Exemplo, 123",
-  "type": "consignado",
-  "identify": "8a2f4d9d1d..."
+  "type": "consignado"
 }
 
 ```
@@ -50,7 +49,7 @@
   Listar dados usuarios, e listar usuarios referente ao tipo
 
 - /invite (POST) Precisa pegar o token gerado no login e colocar em Bearer Token
-  Listar dados usuarios, e listar usuarios referente ao tipo
+  Lista dados do usuario vendedor
 
 - /invite/validate/identify (GET) Pegar o Identify dentro do retorno /invite
 

@@ -49,6 +49,11 @@
 - /userdata (GET) Precisa pegar o token gerado no login e colocar em Bearer Token
   Listar dados usuarios, e listar usuarios referente ao tipo
 
+- /invite (POST) Precisa pegar o token gerado no login e colocar em Bearer Token
+  Listar dados usuarios, e listar usuarios referente ao tipo
+
+- /invite/validate/identify (GET) Pegar o Identify dentro do retorno /invite
+
 ## Aplicativo
 
 ### Ferramentas

@@ -9,15 +9,15 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
-import { Button } from "../../components/button";
-import { Input } from "../../components/input";
-import { DisplayAnImage } from "../../components/image";
-import { useRef, useState } from "react";
+import { Button } from "../../../components/button";
+import { Input } from "../../../components/input";
+import { DisplayAnImage } from "../../../components/image";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Select } from "../../components/select";
-import { api } from "../../services/api";
-import { useAuth } from "../../contexts/AuthContext";
+import { api } from "../../../services/api";
+import { useAuth } from "../../../contexts/AuthContext";
+import { useLocalSearchParams } from "expo-router";
 
 type SignUpFormData = {
   name: string;
@@ -40,14 +40,13 @@ export default function SignUpScreen() {
     formState: { errors },
   } = useForm<SignUpFormData>();
   const insets = useSafeAreaInsets();
-  const [userType, setUserType] = useState("fisica");
   const { signIn } = useAuth();
+  const { id } = useLocalSearchParams();
 
   const passwordRef = useRef<TextInput>(null);
   const confirmPasswordRef = useRef<TextInput>(null);
+  const emailRef = useRef<TextInput>(null);
   const phoneRef = useRef<TextInput>(null);
-  const personTypeRef = useRef<TextInput>(null);
-  const socialRef = useRef<TextInput>(null);
   const cpfCnpjRef = useRef<TextInput>(null);
   const cepRef = useRef<TextInput>(null);
   const stateRef = useRef<TextInput>(null);
@@ -63,7 +62,7 @@ export default function SignUpScreen() {
       cnpj_cpf: data.cpf_cnpj,
       address: `${data.city} ${data.state} ${data.cep}`,
       type: "consignado",
-      responsible_id: 1,
+      identify: id,
     };
 
     try {
@@ -85,7 +84,7 @@ export default function SignUpScreen() {
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
         >
-          <DisplayAnImage src={require("../../assets/logo.png")} />
+          <DisplayAnImage src={require("../../../assets/logo.png")} />
 
           <View style={{ width: "100%" }}>
             <Text style={styles.title}>Cadastro</Text>
@@ -98,7 +97,7 @@ export default function SignUpScreen() {
                   placeholder: "Digite seu nome completo",
                   placeholderTextColor: "#fff",
                   returnKeyType: "next",
-                  onSubmitEditing: () => passwordRef.current?.focus(),
+                  onSubmitEditing: () => emailRef.current?.focus(),
                 }}
                 formProps={{
                   control,
@@ -108,6 +107,7 @@ export default function SignUpScreen() {
               />
 
               <Input
+                ref={emailRef}
                 icon="at-sign"
                 error={errors.email?.message}
                 inputProps={{
@@ -175,38 +175,12 @@ export default function SignUpScreen() {
                   placeholderTextColor: "#fff",
                   keyboardType: "phone-pad",
                   returnKeyType: "next",
-                  onSubmitEditing: () => personTypeRef.current?.focus(),
+                  onSubmitEditing: () => cpfCnpjRef.current?.focus(),
                 }}
                 formProps={{
                   control,
                   name: "phone",
                   rules: { required: "Telefone é Obrigatório." },
-                }}
-              />
-
-              <Select
-                options={[
-                  { label: "Pessoa Física", value: "fisica" },
-                  { label: "Pessoa Jurídica", value: "juridica" },
-                ]}
-                value={userType}
-                onChange={setUserType}
-              />
-
-              <Input
-                ref={socialRef}
-                icon="briefcase"
-                error={errors.social?.message}
-                inputProps={{
-                  placeholder: "Digite sua Razão Social",
-                  placeholderTextColor: "#fff",
-                  returnKeyType: "next",
-                  onSubmitEditing: () => cpfCnpjRef.current?.focus(),
-                }}
-                formProps={{
-                  control,
-                  name: "social",
-                  rules: { required: "Razão Social é Obrigatória." },
                 }}
               />
 

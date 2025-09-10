@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { api } from "../services/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useRouter } from 'expo-router';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { api } from '../services/api';
 
 type User = {
   id: number;
@@ -39,13 +41,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     async function loadStorageData() {
-      const storedUser = await AsyncStorage.getItem("@user");
-      const storedToken = await AsyncStorage.getItem("@token");
+      const storedUser = await AsyncStorage.getItem('@user');
+      const storedToken = await AsyncStorage.getItem('@token');
 
       if (storedUser && storedToken) {
         setUser(JSON.parse(storedUser));
         setToken(storedToken);
-        route.replace("/");
+        route.replace('/'); // usuário já logado
+      } else {
+        route.replace('/sign-in'); // não logado
       }
 
       setIsLoading(false);
@@ -56,28 +60,34 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const response = await api.post("/login", { email, password });
+      const response = await api.post('/login', { email, password });
       const data = response.data;
 
       setUser(data.user);
       setToken(data.token);
 
-      await AsyncStorage.setItem("@user", JSON.stringify(data.user));
-      await AsyncStorage.setItem("@token", data.token);
+      await AsyncStorage.setItem('@user', JSON.stringify(data.user));
+      await AsyncStorage.setItem('@token', data.token);
 
-      route.replace("/");
+      route.replace('/');
     } catch (error: any) {
-      alert(error.response?.data?.message || "Erro ao fazer login.");
+      alert(error.response?.data?.message || 'Erro ao fazer login.');
     }
     setIsLoading(false);
   };
 
   const signOut = async () => {
+    try {
+      await api.post('/logout'); // Laravel vai reconhecer pelo header Authorization
+    } catch (error: any) {
+      console.log('Erro ao deslogar:', error.response?.data || error.message);
+    }
+
     setUser(null);
     setToken(null);
-    await AsyncStorage.removeItem("@user");
-    await AsyncStorage.removeItem("@token");
-    route.replace("/sign-in");
+    await AsyncStorage.removeItem('@user');
+    await AsyncStorage.removeItem('@token');
+    route.replace('/sign-in');
   };
 
   return (
@@ -87,10 +97,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 };
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

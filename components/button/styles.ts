@@ -1,16 +1,17 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#0040C5",
+    backgroundColor: '#0040C5',
     borderRadius: 5,
-    width: "100%",
+    width: '100%',
     height: 44,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 32,
   },
   buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });

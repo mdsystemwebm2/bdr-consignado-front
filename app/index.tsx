@@ -16,10 +16,6 @@ export default function HomeScreen() {
   const { user, token, signOut, isLoading } = useAuth();
   const [consignados, setConsignados] = useState<Consignado[]>([]);
 
-  if (isLoading) {
-    return <SplashScreen />;
-  }
-
   useEffect(() => {
     async function fetchConsignados() {
       try {
@@ -34,6 +30,10 @@ export default function HomeScreen() {
       fetchConsignados();
     }
   }, [token]);
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

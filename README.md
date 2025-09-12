@@ -65,3 +65,8 @@
 - Instalar pacotes `npm install`
 - No terminal rodar o comando `npm start` para APP ou `npx expo start --web` para WEB
 - Pelo app ExpoGo scanear o qr-code
+
+### Usuários
+
+- Admin = suporte@mdsystemweb.com.br
+- Vendedor = admin03@admin.com
